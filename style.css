@@ -35,7 +35,6 @@ body{
     border-radius: 12px;
     overflow: hidden;
     width: 80vw;
-   
     margin: 0;
   }
   
@@ -75,17 +74,103 @@ body{
     background-color: #666;
   }
 
-  #watchlist{
+  #watchlist, #watchlistContainer{
     display: flex;
     justify-content: center;
-    padding-top: 25vh;
-    display:flex;
+    margin-top: 30px;
     flex-direction: column;
+    align-items: center;
   }
-  .movie{
-  justify-content: center;
-  border-bottom: 1px solid #2E2E2F ;
-  padding: 5px;
+  .watchlist-img{
+    padding: 25vh 35vw;
+   
+  }
+
+  
+  .movie {
+    display: flex;
+    gap: 16px;
+    background-color: black;
+    color: white;
+    padding: 16px;
+    margin-bottom: 16px;
+    width:75vw;
+    border-bottom: 1px solid #2e2e2e;
   }
   
+  .movie img {
+    width: 147px;
+    border-radius: 4px;
+  }
+  
+  .movie-info {
+    flex: 1;
+  }
+  
+  .movie-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* space between runtime, genre, and button */
+    margin-bottom: 8px;
+  }
+  
+  .movie-meta .runtime,
+  .movie-meta .genre {
+    font-size: 0.9rem;
+    color: #ccc;
+  }
+  
+  .add-to-watchlist {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #111;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.watchlist-btn:hover, .remove-from-watchlist {
+    background-color: #222;
+}
+
+.plus-icon, .minus-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+a{
+    all:unset;
+}
+#watchlistContainer{
+    padding-top: 50px;
+    color:#666;
+}
+.watchlist-btn, .remove-from-watchlist{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #111;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  
+}
   
