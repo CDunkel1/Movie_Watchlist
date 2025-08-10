@@ -6,7 +6,8 @@ async function renderMovies() {
     watchlistContainer.innerHTML = "";
 
     if (ids.length === 0) {
-        watchlistContainer.innerHTML = "<p>Your watchlist is empty.</p>";
+        watchlistContainer.innerHTML = ` <h2 class="empty">Your watchlist is looking a little empty...</h2>
+        <a href="index.html"><button class="watchlist-btn"><span class="plus-icon">+</span>Let's add some movies!</button></a>`
         return;
     }
 
