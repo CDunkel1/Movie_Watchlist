@@ -14,7 +14,11 @@ searchButton.addEventListener("click", () => {
       if (data.Response === "True") {
         renderMovies(data.Search);
       } else {
-        resultsContainer.innerHTML = `<p>No results found for "${query}".</p>`;
+        resultsContainer.innerHTML = `<p class"no-data">Unable to find what you’re looking for. Please try another search.</p>`;
+         // Change the search bar placeholder
+      searchInput.value = ""; // clear old value
+      searchInput.placeholder = `Searching something with no data.`;
+    
       }
     })
     .catch(err => console.error("Error:", err));
@@ -24,24 +28,48 @@ searchButton.addEventListener("click", () => {
 function renderMovies(movies) {
   resultsContainer.innerHTML = "";
 
-  movies.forEach(movie => {
+
+   movies.forEach(movie => {
     fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${movie.imdbID}&plot=short`)
       .then(res => res.json())
       .then(details => {
-        resultsContainer.innerHTML += `
+        const fullPlot = details.Plot || "";
+        let shortPlot = fullPlot;
+
+        if (fullPlot.length > 135) {
+          shortPlot = fullPlot.substring(0, 135) + "...";
+        }
+
+        const movieHTML = `
           <div class="movie">
             <img src="${details.Poster !== "N/A" ? details.Poster : "https://via.placeholder.com/150"}" alt="${details.Title}">
             <div class="movie-info">
-              <h3>${details.Title}     ⭐ ${details.imdbRating}</h3>
+              <h3>${details.Title}    <span class="rating"> ⭐ ${details.imdbRating}</span></h3>
               <div class="movie-meta">
               <span class="runtime">${details.Runtime}</span>
               <span class="genre">${details.Genre}</span>
               <button class="add-to-watchlist" data-id="${movie.imdbID}"><span class="plus-icon">+</span>Add to Watchlist</button>
             </div>
-              <p>${details.Plot}</p> 
+            <p class="plot">
+            ${shortPlot} 
+            ${fullPlot.length > 135 ? `<a href="#" class="read-more" data-full="${fullPlot}">Read More</a>` : ""}
+          </p>
             </div>
           </div>
         `;
+
+        resultsContainer.innerHTML += movieHTML;
+
+        // Add event listener for Read More (after adding to DOM)
+        const readMoreLinks = resultsContainer.querySelectorAll(".read-more");
+        readMoreLinks.forEach(link => {
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.target.parentElement.textContent = e.target.dataset.full;
+          });
+        });
+
+
         
       });
   });
