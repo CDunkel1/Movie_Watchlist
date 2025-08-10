@@ -1,5 +1,6 @@
 const watchlistContainer = document.getElementById("watchlistContainer");
 const apiKey = "9018b1f4";
+
 async function renderMovies() {
     const ids = JSON.parse(localStorage.getItem("watchlist")) || [];
 
@@ -45,17 +46,23 @@ async function renderMovies() {
         `;
     }
 
-    // Attach event listeners for all Read More links
-    const readMoreLinks = watchlistContainer.querySelectorAll(".read-more");
-    readMoreLinks.forEach(link => {
+    // Attach event listeners for Read More links
+    watchlistContainer.querySelectorAll(".read-more").forEach(link => {
         link.addEventListener("click", (e) => {
             e.preventDefault();
             const parent = e.target.parentElement;
-            parent.textContent = e.target.dataset.full; // Replace short text with full
+            parent.textContent = e.target.dataset.full;
+        });
+    });
+
+    // ✅ Attach event listeners for Remove buttons
+    watchlistContainer.querySelectorAll(".remove-from-watchlist").forEach(button => {
+        button.addEventListener("click", () => {
+            const id = button.dataset.id;
+            removeFromWatchlist(id);
         });
     });
 }
-
 
 function removeFromWatchlist(id) {
     let watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
@@ -65,4 +72,3 @@ function removeFromWatchlist(id) {
 }
 
 document.addEventListener("DOMContentLoaded", renderMovies);
-
